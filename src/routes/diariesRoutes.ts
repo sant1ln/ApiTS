@@ -1,11 +1,21 @@
 import express from 'express';
+import { addEntry, findById, getEntries } from '../services/diariesServices';
 
 export const router = express.Router();
 
 router.get('/',(_,res)=>{
-  res.send('Fetching all entry diaries')
+  res.send(getEntries())
 })
 
-router.post('/',(_,res)=>{
-  res.send('Saving data')
+router.get('/:id',(req,res)=>{
+  const diary = findById(Number(req.params.id))
+  return (diary)
+  ? res.send(diary)
+  : res.send('Not found')
+})
+
+router.post('/',(req,res)=>{
+  const {date,weather,visibility,comment} = req.body
+  const newDiaryEntry = addEntry({date,weather,visibility,comment})
+  res.json(newDiaryEntry)
 })

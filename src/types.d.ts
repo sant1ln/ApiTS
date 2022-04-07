@@ -1,5 +1,6 @@
 export type Weather = 'sunny' | 'rainy' | 'cloudy' | 'windy' | 'stormy'
 export type Visibilty = 'great' | 'good' | 'ok' | 'poor'
+export type NewDiaryEntry = Omit<DiaryEntry,'id'>
 
 export interface DiaryEntry {
   id: number,
