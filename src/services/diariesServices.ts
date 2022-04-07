@@ -5,5 +5,6 @@ const diares: Array<DiaryEntry> = diairyData as Array<DiaryEntry>;
 
 export const getEntries = () => diares;
 
-export const addEntry = () => null;
+export const addEntry = () => null
 
+ 
