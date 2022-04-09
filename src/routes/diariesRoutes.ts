@@ -1,5 +1,6 @@
 import express from 'express';
 import { addEntry, findById, getEntries } from '../services/diariesServices';
+import { toNewDiaryEntry } from '../utils';
 
 export const router = express.Router();
 
@@ -15,7 +16,13 @@ router.get('/:id',(req,res)=>{
 })
 
 router.post('/',(req,res)=>{
-  const {date,weather,visibility,comment} = req.body
-  const newDiaryEntry = addEntry({date,weather,visibility,comment})
-  res.json(newDiaryEntry)
+  try{
+    const newDiaryEntry = toNewDiaryEntry(req.body)
+    
+    const addedDiaryEntry = addEntry(newDiaryEntry)
+
+    res.json(addedDiaryEntry)
+  }catch{
+    res.status(400).send('Error - Bad Request')
+  }
 })
